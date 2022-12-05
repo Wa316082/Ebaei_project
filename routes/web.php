@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Backend\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //============Auth Route Starts here =================
 
-Route::group(['middleware'=>['auth']],function(){
+Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
 
+    Route::group(['prefix'=>'order'],function(){
+        Route::get('/', [OrderController::class, 'index']);
+
+    });
 });
