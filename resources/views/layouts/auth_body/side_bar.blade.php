@@ -84,13 +84,14 @@
                   <p>View Status</p>
                 </a>
               </li>
-              {{-- <li class="nav-item">
-                <a href="pages/UI/icons.html" class="nav-link">
+              <li class="nav-item">
+                <a href="{{ url('admin/location') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Icons</p>
+                  <p>Locations</p>
                 </a>
               </li>
-              <li class="nav-item">
+
+              {{-- <li class="nav-item">
                 <a href="pages/UI/buttons.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Buttons</p>

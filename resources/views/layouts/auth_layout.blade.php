@@ -248,6 +248,8 @@
     // DropzoneJS Demo Code End
   </script>
 
+  @yield('scripts')
+
 
 </body>
 </html>
