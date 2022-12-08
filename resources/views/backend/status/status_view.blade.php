@@ -1,5 +1,5 @@
 @extends('layouts.auth_layout')
-@section('title','Order')
+@section('title','status')
 @section('admin_content')
 
 <div class="content-wrapper">
@@ -12,9 +12,9 @@
                 <div class="card">
                   <div class="card-header bg-success w-100">
                     <div class="d-flex justify-content-between align-items-center ">
-                        <h3 class="card-title">Orders</h3>
-                        <a href="{{ url('admin/order/create') }}" class="btn btn-dark ">Place order</a>
-
+                        <h3 class="card-title">Status</h3>
+                        {{-- <a href="{{ url('admin/order/create') }}" class="btn btn-dark ">Create New</a> --}}
+                        <a class="btn btn-dark" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Create New</a>
                     </div>
                   </div>
                   <!-- /.card-header -->
@@ -22,27 +22,22 @@
                     <table id="example2" class="table table-bordered table-hover">
                       <thead>
                       <tr>
-                        <th>Sender Name</th>
-                        <th>Sender Mobile</th>
-                        <th>Reciever Name</th>
-                        <th>Reciever Mobile</th>
-                        <th>Order price</th>
-                        <th>Waybill number</th>
+                        <th>Status Name</th>
+                        <th>Display Name</th>
                         <th>Action</th>
                       </tr>
                       </thead>
                       <tbody>
-                        @foreach ($orders as $order )
+                        @foreach ($statuses as $status )
 
 
                       <tr>
-                        <td>{{ $order->sender_name }}</td>
-                        <td>{{ $order->sender_contact }}</td>
-                        <td>{{ $order->reciver_name }}</td>
-                        <td>{{ $order->reciver_contact }}</td>
-                        <td>{{ $order->order_price }}</td>
-                        <td>{{ $order->waybill_number }}</td>
-                        <td>actions</td>
+                        <td>{{ $status->name }}</td>
+                        <td>{{ $status->display_name }}</td>
+                        <td class="d-flex align-items-center justify-content-center">
+                            <a href="{{ url('admin/status/edit',$status->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                            <a href="{{ url('admin/status/delete',$status->id) }}" class="btn btn-sm btn-danger ml-2">Delete</a>
+                        </td>
                       </tr>
                       @endforeach
 
@@ -58,5 +53,7 @@
    </div>
 
 </div>
+
+@include('backend.status.status_create')
 
 @endsection

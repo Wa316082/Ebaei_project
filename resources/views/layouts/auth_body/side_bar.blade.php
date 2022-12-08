@@ -33,7 +33,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item active">
-            <a href="" class="nav-link">
+            <a href="{{ route('home') }}" class="nav-link">
               <i class="nav-icon fas fa-light fa-tv"></i>
               <p>Dashbord</p>
             </a>
@@ -52,39 +52,39 @@
               <li class="nav-item">
                 <a href="{{ url('admin/order') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
+                  <p>Order Management</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('admin/order/create') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
                   <p>Place Order</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="pages/charts/inline.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Inline</p>
                 </a>
-              </li>
+              </li> --}}
             </ul>
           </li>
-          {{-- <li class="nav-item">
+          <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
+                <i class="nav-icon fas fa-solid fa-gears"></i>
               <p>
-                UI Elements
+                General Settings
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/UI/general.html" class="nav-link">
+                <a href="{{ url('admin/status') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>General</p>
+                  <p>View Status</p>
                 </a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="pages/UI/icons.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Icons</p>
@@ -125,10 +125,11 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ribbons</p>
                 </a>
-              </li>
+              </li> --}}
             </ul>
           </li>
-          <li class="nav-item">
+
+          {{--<li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
