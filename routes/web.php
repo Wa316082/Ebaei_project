@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\StatusController;
+use App\Http\Controllers\Backend\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
     });
 
 
+    //===============Status Routes============
 
     Route::group(['prefix'=>'status'], function(){
         Route::get('/', [StatusController::class, 'index'])->name('status.view');
@@ -49,6 +51,16 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
         Route::post('update/{id}', [StatusController::class, 'update']);
         Route::get('delete/{id}', [StatusController::class, 'destroy']);
 
+
+    });
+
+
+    //=============Location Routes=====================
+
+    Route::group(['prefix'=>'location'],function(){
+        Route::get('/',[LocationController::class,'create']);
+        Route::get('zone_get/{id}',[LocationController::class,'zone_get']);
+        Route::post('store',[LocationController::class, 'store']);
 
     });
 
