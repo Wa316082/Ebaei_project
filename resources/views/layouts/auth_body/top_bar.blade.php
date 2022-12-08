@@ -105,7 +105,7 @@
           {{-- <span class="badge badge-warning navbar-badge">15</span> --}}
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header ">Settings</span>
+          <p class=" text-center py-2">Settings</p>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
             <i class="fas fa-solid fa-user mr-2"></i>Profile
