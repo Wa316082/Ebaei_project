@@ -15,21 +15,20 @@
                     <div class="card-body ">
                         <form action="{{ url('admin/location/store') }}" method="POST"  enctype="multipart/form-data">
                             @csrf
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-group mb-3">
-                                        <label for="simpleinput"> Name</label>
-                                        <input type="text" id="simpleinput" class="form-control" name="name">
+                            <div class="row col-12">
+
+                                    <div class="form-group col-lg-4 col-md-6 ">
+                                        <label for="name"> Name</label>
+                                        <input type="text" id="name" class="form-control" name="name">
                                         @error('name')
                                         <span class="text-danger">{{ $message }}</span>
                                         @enderror
 
-
                                     </div>
 
-                                </div>
 
-                                    <div class="form-group col-lg-3 col-md-6 mb-3 cc">
+
+                                    <div class="form-group col-lg-4 col-md-6 ">
                                         <label for="type">Type</label>
                                         <select class="form-control select2 " id="type" name="type">
 
@@ -52,8 +51,8 @@
                                     $countries=App\Models\Location::where('parent_id',0)->get();
                                     // dd($countries);
                                 @endphp
-                                <div class="col-lg-3 col-md-6 q1 country d-none">
-                                    <div class="form-group mb-3">
+                                <div class="col-lg-4 col-md-6 q1 country d-none">
+                                    <div class="form-group ">
                                         <label for="country_id">Country</label>
                                         <select class="form-control select2 country_id  cont" id="country_id" name="country_id">
                                             <option value=""> Select Country</option>
@@ -66,7 +65,7 @@
 
                                 </div>
                                 {{-- division --}}
-                                    <div class="form-group col-lg-3 col-md-6 q2 zone d-none mb-3">
+                                    <div class="form-group col-lg-4 col-md-6 q2 zone d-none mb-3">
                                         <label for="zone_id">Zone/Division/City</label>
                                         <select class="form-control select2 set " id="zone_id" name="zone_id">
                                             <option> Select Zone/Division/City</option>

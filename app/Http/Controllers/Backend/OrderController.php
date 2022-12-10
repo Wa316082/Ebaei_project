@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use Throwable;
 use App\Models\Order;
+use App\Models\Status;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +18,8 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::get();
-        return view('backend.orders.order_view',compact('orders'));
+        $statuses = Status::get();
+        return view('backend.orders.order_view',compact('orders','statuses'));
     }
 
 
@@ -26,7 +29,8 @@ class OrderController extends Controller
     public function create()
     {
         // dd('hello');
-        return view('backend.orders.order_create');
+        $countries = Location::where('parent_id',0)->get();
+        return view('backend.orders.order_create', compact('countries'));
     }
 
 
