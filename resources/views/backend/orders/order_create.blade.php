@@ -29,7 +29,7 @@
                                     </div>
 
                                     <div class="form-group col-md-6 col-lg-4 ">
-                                        <label for="sender_name">Ricever Name <span class="text-danger">*</span></label>
+                                        <label for="sender_name">Sender Name <span class="text-danger">*</span></label>
                                         <input type="text" name="sender_name" class="form-control" id="sender_name"
                                             placeholder="Enter Name">
                                         @error('sender_name')
@@ -56,10 +56,9 @@
                                         <label for="sender_country">Country <span class="text-danger">*</span></label>
                                         <select name="sender_country" class="form-control select2" id="sender_country" style="width: 100%;">
                                             <option value="" selected="selected">Select Country</option>
-                                            <option value="1">Bangladesh</option>
-                                            <option value="2">Australia</option>
-                                            <option value="3">India</option>
-                                            <option value="4">China</option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            @endforeach
                                         </select>
                                         @error('sender_country')
                                             <span class="text-danger">{{ $message }}</span>
@@ -142,10 +141,9 @@
                                         <label for="reciever_country">Country <span class="text-danger">*</span></label>
                                         <select name="reciever_country" class="form-control select2" id="reciever_country" style="width: 100%;">
                                             <option value="" selected="selected">Select Country</option>
-                                            <option value="1">Bangladesh</option>
-                                            <option value="2">Australia</option>
-                                            <option value="3">India</option>
-                                            <option value="4">China</option>
+                                            @foreach ($countries as $country)
+                                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                            @endforeach
                                         </select>
                                         @error('reciever_country')
                                             <span class="text-danger">{{ $message }}</span>
@@ -368,5 +366,12 @@
 
         </div>
     </div>
+
+@endsection
+
+@section('scripts')
+
+
+
 
 @endsection

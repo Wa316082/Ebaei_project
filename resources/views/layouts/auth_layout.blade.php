@@ -81,8 +81,8 @@
 <!-- Bootstrap4 Duallistbox -->
 <script src="{{ asset('admin/assets/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
 <!-- InputMask -->
-<script src="{{ asset('admin/asset/plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('admin/asset/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+{{-- <script src="{{ asset('admin/asset/plugins/moment/moment.min.js') }}"></script> --}}
+{{-- <script src="{{ asset('admin/asset/plugins/inputmask/jquery.inputmask.min.js') }}"></script> --}}
 
 <!-- ChartJS -->
 <script src="{{ asset('admin/assets/plugins/chart.js/Chart.min.js') }}"></script>

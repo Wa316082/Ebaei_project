@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\StatusController;
 use App\Http\Controllers\Backend\LocationController;
+use App\Http\Controllers\Backend\StatusHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,17 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
         Route::post('store',[LocationController::class, 'store']);
 
     });
+
+    // ============== Status History related Routes==========
+
+
+    Route::group(['prefix'=>'status.histroy'],function (){
+        Route::post('/', [StatusHistoryController::class ,'store']);
+
+    });
+
+
+
 
 
 

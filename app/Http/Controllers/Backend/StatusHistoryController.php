@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Http\Controllers\Backend;
+
+use Carbon\Carbon;
+use App\Models\Order;
+use Illuminate\Http\Request;
+use App\Models\OrderSatatusHistory;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
+class StatusHistoryController extends Controller
+{
+    public function store(Request $request)
+    {
+
+        $validated = $request->validate([
+            'status_checked' => 'required',
+            'status_id' => 'required',
+            // 'comments' => 'required',
+
+                ],
+            [
+                'status_checked.required'=>'for update order status you have to check orders'
+            ]);
+        if( $validated)
+        {
+            $not_check_id = array_map('intval', explode(',',$request->status_not_checked));
+            $explode_id = array_map('intval', explode(',',$request->status_checked));
+            $array_data1 = array_unique($explode_id);
+            if($array_data1[0] == 0)
+            {
+               $array_data= array_slice($array_data1, 1);
+
+            }
+            else{
+                $array_data=$array_data1;
+            }
+
+            $not_array_checked1 = array_unique($not_check_id);
+            if($not_array_checked1[0] == 0)
+            {
+               $not_array_checked= array_slice($not_array_checked1, 1);
+
+            }
+            else{
+                $not_array_checked=$not_array_checked1;
+            }
+            $intersect = array_intersect($array_data, $not_array_checked);
+            $filteredFoo = array_diff($array_data, $not_array_checked );
+
+            foreach($filteredFoo  as $orders)
+            {
+                $order=Order::where('id',$orders)->first();
+                $statushistory = new OrderSatatusHistory();
+                $statushistory->order_id=$order->id;
+                // $statushistory->custom_order_id=$order->custom_order_id;
+                 $statushistory->status_id=$request->status_id;
+                 $statushistory->sender_country_id=$order->sender_country_id;
+                 $statushistory->sender_zone_id=$order->sender_zone_id;
+                 $statushistory->sender_area_id=$order->sender_area_id;
+                 $statushistory->remarks=$request->remarks;
+                 $statushistory->posted_on=Carbon::now();
+                 $statushistory->posted_by=Auth::user()->id;
+                 $statushistory->save();
+            }
+            return back()->with('success', 'Status updated successfully !');
+        }
+
+    }
+}
