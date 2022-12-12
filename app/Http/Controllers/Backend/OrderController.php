@@ -7,7 +7,9 @@ use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Status;
 use App\Models\Location;
+use App\Models\Merchant;
 use Illuminate\Http\Request;
+use App\Models\OrderSatatusHistory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -134,7 +136,8 @@ class OrderController extends Controller
 
     public function tracking()
     {
-       return view('backend.orders.order_tracking');
+        $merchants = Merchant::get();
+       return view('backend.orders.order_tracking',compact('merchants'));
     }
 
 
@@ -187,5 +190,16 @@ class OrderController extends Controller
         return back()->with([
             'orders'=>$orders,
         ])->with('success','Order tracked :)');
+    }
+
+
+
+    //============ Track order function======
+
+    public function track($id)
+    {
+        $histories = OrderSatatusHistory::where('order_id',$id)->with('status')->get();
+        // dd($histories);
+        return view('backend.orders.order_tracking_details', compact('histories'));
     }
 }

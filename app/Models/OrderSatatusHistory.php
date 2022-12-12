@@ -9,4 +9,9 @@ class OrderSatatusHistory extends Model
 {
     use HasFactory;
     protected $guarded=[];
+
+
+    public function status(){
+        return $this->belongsTo(Status::class, 'status_id','id');
+    }
 }
