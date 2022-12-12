@@ -1,7 +1,9 @@
 @extends('layouts.auth_layout')
 @section('title','Order')
 @section('admin_content')
-
+@php
+    $orders = Session::get('orders');
+@endphp
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
    <div class="content-header">
@@ -37,7 +39,12 @@
 
                             <div class="col-md-3">
                                 <label for="waybill">Merchant Name</label>
-                                <input type="text" name="merchant_name" placeholder="Merchant" class="form-control">
+                                <select name="merchant_name" class="form-control select2" id="merchant_name">
+                                  <option value="" selected="selected">Select One</option>
+                                  @foreach ($merchants as $merchant )
+                                  <option value="{{ $merchant->id }}">{{ $merchant->name }}</option>
+                                  @endforeach
+                              </select>
                             </div>
                             <div class="mt-3"><button type="submit" class="btn btn-success"><span><i class="fas fa-solid fa-magnifying-glass fw-6"></i></span> Search</button></div>
                         </form>
@@ -45,7 +52,6 @@
                     <table id="example2" class="table table-bordered table-hover">
                       <thead>
                       <tr>
-                        <th><input class="mr-1 check_all" type="checkbox"><span>All</span></th>
                         <th>Sender Name</th>
                         <th>Sender Mobile</th>
                         <th>Reciever Name</th>
@@ -56,19 +62,21 @@
                       </tr>
                       </thead>
                       <tbody>
-                        {{-- @foreach ($orders as $order )
-                      <tr>
+                        @if ($orders != null)
 
+
+                        @foreach ($orders as $order )
+                      <tr>
                         <td>{{ $order->sender_name }}</td>
                         <td>{{ $order->sender_contact }}</td>
                         <td>{{ $order->reciver_name }}</td>
                         <td>{{ $order->reciver_contact }}</td>
                         <td>{{ $order->order_price }}</td>
                         <td>{{ $order->waybill_number }}</td>
-                        <td>actions</td>
+                        <td><a href="{{ url('admin/order/track',$order->id) }}" target="_blank" class="btn btn-success btn-sm">Track</a></td>
                       </tr>
-                      @endforeach --}}
-
+                      @endforeach
+                      @endif
                       </tbody>
                     </table>
                 </div>

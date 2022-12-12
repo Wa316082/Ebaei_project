@@ -21,12 +21,12 @@ use App\Http\Controllers\Backend\StatusHistoryController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -44,6 +44,7 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
         Route::post('store', [OrderController::class, 'store']);
         Route::get('tracking', [OrderController::class ,'tracking']);
         Route::get('tracking.search' ,[OrderController::class, 'tracking_search']);
+        Route::get('track/{id}' ,[OrderController::class, 'track']);
 
 
     });
