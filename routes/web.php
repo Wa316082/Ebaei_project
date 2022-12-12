@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\StatusController;
+use App\Http\Controllers\Backend\MerchantController;
+use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\LocationController;
 use App\Http\Controllers\Backend\StatusHistoryController;
 
@@ -66,6 +68,28 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
         Route::get('/',[LocationController::class,'create']);
         Route::get('zone_get/{id}',[LocationController::class,'zone_get']);
         Route::post('store',[LocationController::class, 'store']);
+
+    });
+
+//    ================merchant routes========================
+
+
+
+    Route::group(['prefix'=>'merchant'], function(){
+        Route::get('/', [MerchantController::class, 'index'])->name('merchants.view');
+        Route::post('store',[MerchantController::class, 'store']);
+
+
+    });
+
+
+
+//    ============service routes==================
+
+    Route::group(['prefix'=>'service'], function(){
+        Route::get('/', [ServiceController::class, 'index'])->name('services.view');
+        //Route::post('store',[MerchantController::class, 'store']);
+
 
     });
 
