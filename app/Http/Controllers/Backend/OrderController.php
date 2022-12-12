@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use Throwable;
+use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Status;
 use App\Models\Location;
@@ -123,5 +124,68 @@ class OrderController extends Controller
 
 
 
+    }
+
+
+
+
+
+    // ============== Tracking view function=========
+
+    public function tracking()
+    {
+       return view('backend.orders.order_tracking');
+    }
+
+
+
+    //===========tracking search function============
+
+    public function tracking_search(Request $request)
+    {
+        $arr_date = explode("-", $request->dates);
+        $from_date = Carbon::parse($arr_date[0])->format('Y-m-d');
+        $to_date = Carbon::parse($arr_date[1])->format('Y-m-d');
+        // dd($from_date,$to_date);
+
+        if($request->dates != '' && $request->wabn != '' && $request->merchant_name != ''){
+            $orders = Order::where('waybill_number',$request->wabn)->where('merchant_id',$request->merchant_name)
+                    ->whereBetween('created_at',array($from_date.' 00:00:00',  $to_date.' 23:59:59'))->get();
+        }
+
+        elseif($request->dates != '' && $request->wabn != '' && $request->merchant_name == ''){
+            $orders = Order::where('waybill_number',$request->wabn)
+                    ->whereBetween('created_at',
+                    array($from_date.' 00:00:00',  $to_date.' 23:59:59'))->get();
+        }
+        elseif($request->dates != '' && $request->wabn == '' && $request->merchant_name != ''){
+            $orders = Order::where('merchant_id',$request->merchant_name)
+                    ->whereBetween('created_at',
+                    array($from_date.' 00:00:00',  $to_date.' 23:59:59'))->get();
+
+        }
+        elseif($request->dates == '' && $request->wabn != '' && $request->merchant_name != ''){
+            $orders = Order::where('waybill_number',$request->wabn)->where('merchant_id',$request->merchant_name)
+                    ->get();
+
+        }
+        elseif($request->dates == '' && $request->wabn == '' && $request->merchant_name != ''){
+            $orders = Order::where('merchant_id',$request->merchant_name)->get();
+
+        }
+        elseif($request->dates == '' && $request->wabn != '' && $request->merchant_name == ''){
+            $orders = Order::where('waybill_number',$request->wabn)->get();
+
+        }
+        elseif($request->dates != '' && $request->wabn == '' && $request->merchant_name == ''){
+            $orders = Order::whereBetween('created_at',
+                array($from_date.' 00:00:00',  $to_date.' 23:59:59'))->get();
+
+        }
+
+
+        return back()->with([
+            'orders'=>$orders,
+        ])->with('success','Order tracked :)');
     }
 }
