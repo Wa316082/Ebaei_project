@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\StatusController;
 use App\Http\Controllers\Backend\MerchantController;
+use App\Http\Controllers\Backend\AgentController;
 use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\LocationController;
 use App\Http\Controllers\Backend\StatusHistoryController;
@@ -79,6 +80,13 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
     Route::group(['prefix'=>'merchant'], function(){
         Route::get('/', [MerchantController::class, 'index'])->name('merchants.view');
         Route::post('store',[MerchantController::class, 'store']);
+
+
+    });
+
+    Route::group(['prefix'=>'agent'], function(){
+        Route::get('/', [AgentController::class, 'index'])->name('agents.view');
+        Route::post('store',[AgentController::class, 'store']);
 
 
     });

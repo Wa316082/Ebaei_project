@@ -17,6 +17,29 @@
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
+
+                        <div class="form-group col-md-6 col-lg-4">
+                            <label for="agent_id">Agent Name <span class="text-danger"></span></label>
+                            <select name="agent_id" class="form-control select2" id="agent_id" style="width: 100%;">
+                                <option value="" selected="selected">Select One</option>
+                                @foreach($agents as $agent)
+                                    <option value="{{ $agent->id }}">{{ $agent->name }}</option>
+
+                                @endforeach
+                            </select>
+                            @error('agent_id')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+
+
+
+
+
+
+
 {{--                        <div class="form-group col-md-6 ">--}}
 {{--                            <label for="display_name">Status Display Name <span class="text-danger">*</span></label>--}}
 {{--                            <input type="text" name="display_name" class="form-control" id="display_name"--}}
