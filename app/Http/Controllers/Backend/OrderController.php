@@ -9,9 +9,11 @@ use App\Models\Status;
 use App\Models\Location;
 use App\Models\Merchant;
 use Illuminate\Http\Request;
+use App\Exports\OrderReports;
 use App\Models\OrderSatatusHistory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -151,45 +153,67 @@ class OrderController extends Controller
         $to_date = Carbon::parse($arr_date[1])->format('Y-m-d');
         // dd($from_date,$to_date);
 
-        if($request->dates != '' && $request->wabn != '' && $request->merchant_name != ''){
-            $orders = Order::where('waybill_number',$request->wabn)->where('merchant_id',$request->merchant_name)
-                    ->whereBetween('created_at',array($from_date.' 00:00:00',  $to_date.' 23:59:59'))->get();
-        }
+        try {
+            if($request->dates != '' && $request->wabn != '' && $request->merchant_name != ''){
+                $orders = Order::where('waybill_number',$request->wabn)->where('merchant_id',$request->merchant_name)
+                        ->whereBetween('created_at',array($from_date.' 00:00:00',  $to_date.' 23:59:59'))->get();
 
-        elseif($request->dates != '' && $request->wabn != '' && $request->merchant_name == ''){
-            $orders = Order::where('waybill_number',$request->wabn)
-                    ->whereBetween('created_at',
+                        // dd('from all data');
+            }
+
+            elseif($request->dates != '' && $request->wabn != '' && $request->merchant_name == ''){
+                $orders = Order::where('waybill_number',$request->wabn)
+                        ->whereBetween('created_at',
+                        array($from_date.' 00:00:00',  $to_date.' 23:59:59'))->get();
+                        // dd('from merchant name null and dates and wbn ace');
+            }
+            elseif($request->dates != '' && $request->wabn == '' && $request->merchant_name != ''){
+                $orders = Order::where('merchant_id',$request->merchant_name)
+                        ->whereBetween('created_at',
+                        array($from_date.' 00:00:00',  $to_date.' 23:59:59'))->get();
+                        // dd('from wbn null and dates and merchant ace');
+
+
+            }
+            elseif($request->dates == '' && $request->wabn != '' && $request->merchant_name != ''){
+                $orders = Order::where('waybill_number',$request->wabn)->where('merchant_id',$request->merchant_name)
+                        ->get();
+                        // dd('from wbn null and dates and merchant ace');
+
+
+            }
+            elseif($request->dates == '' && $request->wabn == '' && $request->merchant_name != ''){
+                $orders = Order::where('merchant_id',$request->merchant_name)->get();
+                // dd('from merchant ace and dates and wbn null');
+
+
+            }
+            elseif($request->dates == '' && $request->wabn != '' && $request->merchant_name == ''){
+                $orders = Order::where('waybill_number',$request->wabn)->get();
+                // dd('from wbn ace and dates and merchant null');
+
+
+            }
+            elseif($request->dates != '' && $request->wabn == '' && $request->merchant_name == ''){
+                $orders = Order::whereBetween('created_at',
                     array($from_date.' 00:00:00',  $to_date.' 23:59:59'))->get();
+                // dd('from dates ace and wbn and merchant null');
+
+
+            }else{
+                // dd('kicu nai');
+
+                return back()->with('info','something went wrong p;ease try again');
+            }
+
+
+            return back()->with([
+                'orders'=>$orders,
+            ])->with('success','Order tracked :)');
+
+        } catch (Throwable $th) {
+           return $th;
         }
-        elseif($request->dates != '' && $request->wabn == '' && $request->merchant_name != ''){
-            $orders = Order::where('merchant_id',$request->merchant_name)
-                    ->whereBetween('created_at',
-                    array($from_date.' 00:00:00',  $to_date.' 23:59:59'))->get();
-
-        }
-        elseif($request->dates == '' && $request->wabn != '' && $request->merchant_name != ''){
-            $orders = Order::where('waybill_number',$request->wabn)->where('merchant_id',$request->merchant_name)
-                    ->get();
-
-        }
-        elseif($request->dates == '' && $request->wabn == '' && $request->merchant_name != ''){
-            $orders = Order::where('merchant_id',$request->merchant_name)->get();
-
-        }
-        elseif($request->dates == '' && $request->wabn != '' && $request->merchant_name == ''){
-            $orders = Order::where('waybill_number',$request->wabn)->get();
-
-        }
-        elseif($request->dates != '' && $request->wabn == '' && $request->merchant_name == ''){
-            $orders = Order::whereBetween('created_at',
-                array($from_date.' 00:00:00',  $to_date.' 23:59:59'))->get();
-
-        }
-
-
-        return back()->with([
-            'orders'=>$orders,
-        ])->with('success','Order tracked :)');
     }
 
 
@@ -201,5 +225,42 @@ class OrderController extends Controller
         $histories = OrderSatatusHistory::where('order_id',$id)->with('status')->get();
         // dd($histories);
         return view('backend.orders.order_tracking_details', compact('histories'));
+    }
+
+
+
+
+    //============function for order reports download===========
+
+
+    public function reports()
+    {
+
+        $merchants = Merchant::get();
+        return view('backend.orders.order_reports', compact('merchants'));
+    }
+
+
+
+
+    public function download(Request $request)
+    {
+        // dd($request->all());
+
+            if($request->dates != ''  || $request->merchant_name != '' || $request->wabn != '' ){
+
+                // dd('hello');
+                $arr_date = explode("-", $request->dates);
+                $from_date = Carbon::parse($arr_date[0])->format('Y-m-d');
+                $to_date = Carbon::parse($arr_date[1])->format('Y-m-d');
+                $merchant_name = $request->merchant_name;
+                $wabn=$request->wabn;
+                $dates =$request->dates;
+
+                return Excel::download(new OrderReports($from_date, $to_date, $merchant_name, $wabn , $dates), 'report.xlsx');
+            }else{
+                return back()->with('info','Something went Wrong Please try again');
+            }
+
     }
 }

@@ -122,7 +122,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ url('admin/order/reports') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>General Reports</p>
                 </a>

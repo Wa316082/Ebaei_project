@@ -46,6 +46,8 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
         Route::get('tracking', [OrderController::class ,'tracking']);
         Route::get('tracking.search' ,[OrderController::class, 'tracking_search']);
         Route::get('track/{id}' ,[OrderController::class, 'track']);
+        Route::get('reports' ,[OrderController::class, 'reports']);
+        Route::get('reports.download' ,[OrderController::class, 'download']);
 
 
     });
@@ -109,8 +111,6 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
         Route::post('/', [StatusHistoryController::class ,'store']);
 
     });
-
-
 
 
 
