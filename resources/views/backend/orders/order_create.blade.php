@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="form-group col-md-6 col-lg-4">
                                         <label for="sender_country">Country <span class="text-danger">*</span></label>
-                                        <select name="sender_country" class="form-control select2" id="sender_country" style="width: 100%;">
+                                        <select name="sender_country" class="form-control select2 sender_country" id="sender_country" style="width: 100%;">
                                             <option value="" selected="selected">Select Country</option>
                                             @foreach ($countries as $country)
                                                 <option value="{{ $country->id }}">{{ $country->name }}</option>
@@ -371,6 +371,104 @@
 
 @section('scripts')
 
+
+
+<script>
+
+$('#sender_country').change(function(){
+    var id = $('#sender_country option:selected').val()
+    $('select[name="sender_zone"]').empty();
+                $.ajax({
+                    type: "GET",
+                    url: `/admin/location/zone_get/${id}`,
+                    success: function(response) {
+                        // console.log(response);
+                        var optional = `<option  value="">Select Zone Name</option>`;
+                        $('select[name="sender_zone"]').append(optional);
+                        $.each(response.zones, function(key, value) {
+                            // console.log(value);
+                            $('select[name="sender_zone"]').append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        })
+                        // console.log(response.district);
+                    }
+                });
+
+
+});
+
+$('#sender_zone').change(function(){
+    var id = $('#sender_zone option:selected').val()
+    // console.log(id);
+    $('select[name="sender_area"]').empty();
+                $.ajax({
+                    type: "GET",
+                    url: `/admin/location/area_get/${id}`,
+                    success: function(response) {
+                        // console.log(response);
+                        var optional = `<option  value="">Select Area Name</option>`;
+                        $('select[name="sender_area"]').append(optional);
+                        $.each(response.areas, function(key, value) {
+                            // console.log(value);
+                            $('select[name="sender_area"]').append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        })
+                        // console.log(response.district);
+                    }
+                });
+
+
+});
+
+
+$('#reciever_country').change(function(){
+    var id = $('#reciever_country option:selected').val()
+    $('select[name="reciever_zone"]').empty();
+                $.ajax({
+                    type: "GET",
+                    url: `/admin/location/zone_get/${id}`,
+                    success: function(response) {
+                        // console.log(response);
+                        var optional = `<option  value="">Select Zone Name</option>`;
+                        $('select[name="reciever_zone"]').append(optional);
+                        $.each(response.zones, function(key, value) {
+                            // console.log(value);
+                            $('select[name="reciever_zone"]').append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        })
+                        // console.log(response.district);
+                    }
+                });
+
+
+});
+
+$('#reciever_zone').change(function(){
+    var id = $('#reciever_zone option:selected').val()
+    // console.log(id);
+    $('select[name="reciever_area"]').empty();
+                $.ajax({
+                    type: "GET",
+                    url: `/admin/location/area_get/${id}`,
+                    success: function(response) {
+                        // console.log(response);
+                        var optional = `<option  value="">Select Area Name</option>`;
+                        $('select[name="reciever_area"]').append(optional);
+                        $.each(response.areas, function(key, value) {
+                            // console.log(value);
+                            $('select[name="reciever_area"]').append('<option value="' + value.id +
+                                '">' + value.name + '</option>');
+                        })
+                        // console.log(response.district);
+                    }
+                });
+
+
+});
+
+
+
+</script>
 
 
 

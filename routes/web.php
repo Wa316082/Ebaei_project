@@ -71,6 +71,7 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
     Route::group(['prefix'=>'location'],function(){
         Route::get('/',[LocationController::class,'create']);
         Route::get('zone_get/{id}',[LocationController::class,'zone_get']);
+        Route::get('area_get/{id}',[LocationController::class,'area_get']);
         Route::post('store',[LocationController::class, 'store']);
 
     });

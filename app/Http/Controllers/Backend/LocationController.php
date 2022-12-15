@@ -31,6 +31,18 @@ class LocationController extends Controller
 
 
 
+    public function area_get($id)
+    {
+        // dd($id);
+        $areas = Location::where('parent_id',$id)->get();
+        // dd($zones);
+        return response()->json([
+            'areas' => $areas,
+        ]);
+    }
+
+
+
 
     //================location store function===========
 

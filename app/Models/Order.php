@@ -16,5 +16,30 @@ class Order extends Model
         return $this->belongsTo(Location::class, 'sender_country_id','id');
     }
 
+    public function zone()
+    {
+        return $this->belongsTo(Location::class, 'sender_zone_id','id');
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Location::class, 'sender_area_id','id');
+    }
+
+    public function reciever_country()
+    {
+        return $this->belongsTo(Location::class, 'reciver_country_id','id');
+    }
+
+    public function reciever_zone()
+    {
+        return $this->belongsTo(Location::class, 'reciver_zone_id','id');
+    }
+
+    public function reciever_area()
+    {
+        return $this->belongsTo(Location::class, 'reciver_area_id','id');
+    }
+
 
 }
