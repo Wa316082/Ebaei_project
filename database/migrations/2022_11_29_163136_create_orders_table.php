@@ -47,6 +47,7 @@ return new class extends Migration
             $table->string('product_id')->nullable();
             $table->string('product_type')->nullable();
             $table->integer('billing_id')->nullable();
+            $table->integer('pieces')->nullable();
             $table->float('length')->nullable();
             $table->float('height')->nullable();
             $table->float('width')->nullable();
