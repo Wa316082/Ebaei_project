@@ -22,12 +22,12 @@ use App\Http\Controllers\Backend\StatusHistoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('auth.login');
 // });
+Route::get('/', function () {
+    return view('landing_pages.welcome');
+});
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -48,6 +48,7 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
         Route::get('track/{id}' ,[OrderController::class, 'track']);
         Route::get('reports' ,[OrderController::class, 'reports']);
         Route::get('reports.download' ,[OrderController::class, 'download']);
+        Route::get('merchant/{id}' ,[OrderController::class, 'ajax_merchant']);
 
 
     });
@@ -71,6 +72,7 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
     Route::group(['prefix'=>'location'],function(){
         Route::get('/',[LocationController::class,'create']);
         Route::get('zone_get/{id}',[LocationController::class,'zone_get']);
+        Route::get('area_get/{id}',[LocationController::class,'area_get']);
         Route::post('store',[LocationController::class, 'store']);
 
     });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use Throwable;
 use Carbon\Carbon;
+use App\Models\Agent;
 use App\Models\Order;
 use App\Models\Status;
 use App\Models\Location;
@@ -22,6 +23,7 @@ class OrderController extends Controller
 
     public function index()
     {
+
         $orders = Order::get();
         $statuses = Status::get();
         return view('backend.orders.order_view',compact('orders','statuses'));
@@ -34,14 +36,32 @@ class OrderController extends Controller
     public function create()
     {
         // dd('hello');
+        $agents = Agent::get();
         $countries = Location::where('parent_id',0)->get();
-        return view('backend.orders.order_create', compact('countries'));
+        return view('backend.orders.order_create', compact('countries','agents'));
+    }
+
+
+
+    // =====================ajax merchant funtion=======================
+
+
+    public function ajax_merchant($id)
+    {
+        $merchants = Merchant::where('agent_id',$id)->get();
+
+        return response()->json([
+            'merchants'=>$merchants
+        ]);
     }
 
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $validated = $request->validate([
+            'agent'=>'sometimes',
+            'merchant'=>'sometimes',
             'sender_name' => 'required',
             'sender_contact' => 'required',
             'sender_email' => 'required|email',
@@ -65,7 +85,7 @@ class OrderController extends Controller
             'shipment_type' => 'required',
             'perel_type' => 'required',
             'product_type' => 'required',
-            'delivery_date' => 'required',
+            'delivery_time' => 'required',
             'order_price' => 'required',
             'final_weight' => 'required',
         ]);
@@ -76,7 +96,16 @@ class OrderController extends Controller
                 $order = new Order;
 
                 $order->user_id= Auth::user()->id;
-                $order->merchant_id=$request->merchant_name;
+                if($request->agent){
+                    $order->agent_id=$request->agent;
+                }else{
+                    $order->agent_id=null;
+                }
+                if($request->merchant){
+                    $order->merchant_id=$request->merchant;
+                }else{
+                    $order->merchant_id=null;
+                }
                 $order->sender_name=$request->sender_name;
                 $order->sender_contact=$request->sender_contact;
                 $order->sender_email=$request->sender_email;
@@ -103,15 +132,16 @@ class OrderController extends Controller
                 $order->delivery_time=$request->delivery_date;
                 $order->percel_type=$request->perel_type;
                 $order->order_price=$request->order_price;
-                $order->product_id='';
+                $order->product_id=$request->product_id;
                 $order->product_type=$request->product_type;
+                $order->pieces=$request->pieces;
                 // $order->billing_id='';
-                // $order->length='';
-                // $order->height='';
-                // $order->width='';
-                // $order->gross_weight='';
+                $order->length=$request->length;
+                $order->height=$request->height;
+                $order->width=$request->width;
+                $order->gross_weight=$request->volume_weight;
                 $order->final_weight=$request->final_weight;
-                $order->remarks='';
+                $order->remarks=$request->remarks;
 
                 // dd($order);
                 $order->save();

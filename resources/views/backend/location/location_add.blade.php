@@ -97,7 +97,7 @@
             $('.country_id').change(function() {
                 // console.log("hello");
                 var id = $('.country_id option:selected').val();
-                console.log(id);
+                // console.log(id);
                 $('select[name="zone_id"]').empty();
                 $.ajax({
                     type: "GET",
