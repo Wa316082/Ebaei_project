@@ -61,12 +61,12 @@
                   <p>Place Order</p>
                 </a>
               </li>
-              {{-- <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
+              <li class="nav-item">
+                <a href="{{ url('admin/order/master_waybill') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
+                  <p>Set Master Waybill</p>
                 </a>
-              </li> --}}
+              </li>
             </ul>
           </li>
 

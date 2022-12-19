@@ -60,16 +60,16 @@ class OrderController extends Controller
     {
         // dd($request->all());
         $validated = $request->validate([
-            'agent'=>'sometimes',
-            'merchant'=>'sometimes',
-            'sender_name' => 'required',
-            'sender_contact' => 'required',
-            'sender_email' => 'required|email',
-            'sender_country' => 'required',
-            'sender_zone' => 'required',
-            'sender_area' => 'required',
-            'sender_post_code' => 'required',
-            'sender_address' => 'required',
+            // 'agent'=>'sometimes',
+            // 'merchant'=>'sometimes',
+            // 'sender_name' => 'required',
+            // 'sender_contact' => 'required',
+            // 'sender_email' => 'required|email',
+            // 'sender_country' => 'required',
+            // 'sender_zone' => 'required',
+            // 'sender_area' => 'required',
+            // 'sender_post_code' => 'required',
+            // 'sender_address' => 'required',
             'reciever_name' => 'required',
             'reciever_contact' => 'required',
             'reciever_email' => 'required|email',
@@ -292,5 +292,59 @@ class OrderController extends Controller
                 return back()->with('info','Something went Wrong Please try again');
             }
 
+    }
+
+
+
+
+    public function master_waybill()
+    {
+        $orders = Order::get();
+        return view('backend.orders.master_wabill_set',compact('orders'));
+    }
+
+
+    public function add_master_waybill(Request $request){
+        // dd($request->all());
+        $validated = $request->validate([
+            'master_waybill' => 'required',
+
+                ],
+            );
+        if( $validated)
+        {
+            $not_check_id = array_map('intval', explode(',',$request->order_not_checked));
+            $explode_id = array_map('intval', explode(',',$request->order_checked));
+            $array_data1 = array_unique($explode_id);
+            if($array_data1[0] == 0)
+            {
+               $array_data= array_slice($array_data1, 1);
+
+            }
+            else{
+                $array_data=$array_data1;
+            }
+
+            $not_array_checked1 = array_unique($not_check_id);
+            if($not_array_checked1[0] == 0)
+            {
+               $not_array_checked= array_slice($not_array_checked1, 1);
+
+            }
+            else{
+                $not_array_checked=$not_array_checked1;
+            }
+            $intersect = array_intersect($array_data, $not_array_checked);
+            $filteredFoo = array_diff($array_data, $not_array_checked );
+
+            foreach($filteredFoo  as $orders)
+            {
+                $order=Order::where('id',$orders)->first();
+                // dd($order);
+                $order->master_waybill = $request->master_waybill;
+                $order->save();
+            }
+            return back()->with('success', 'Master Waybill Updated successfully !');
+        }
     }
 }
