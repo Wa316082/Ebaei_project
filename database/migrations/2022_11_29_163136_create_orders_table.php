@@ -37,7 +37,7 @@ return new class extends Migration
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
             $table->string('waybill_number')->nullable();
-            $table->integer('reference_number')->nullable();
+            $table->string('reference_number')->nullable();
             $table->dateTime('order_date')->nullable();
             $table->dateTime('shipent_date')->nullable();
             $table->string('delivery_type')->nullable();
@@ -54,6 +54,7 @@ return new class extends Migration
             $table->float('gross_weight')->nullable();
             $table->float('final_weight')->nullable();
             $table->string('remarks')->nullable();
+            $table->string('master_waybill')->nullable();
             $table->timestamps();
         });
     }

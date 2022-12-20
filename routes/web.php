@@ -28,6 +28,25 @@ use App\Http\Controllers\Backend\StatusHistoryController;
 Route::get('/', function () {
     return view('landing_pages.welcome');
 });
+Route::get('/about', function () {
+    return view('landing_pages.about');
+});
+
+Route::get('/services', function () {
+    return view('landing_pages.services');
+});
+
+Route::get('/archive', function () {
+    return view('landing_pages.archive');
+});
+
+Route::get('/experience', function () {
+    return view('landing_pages.experience');
+});
+Route::get('/contact', function () {
+    return view('landing_pages.contact');
+});
+
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -49,6 +68,8 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
         Route::get('reports' ,[OrderController::class, 'reports']);
         Route::get('reports.download' ,[OrderController::class, 'download']);
         Route::get('merchant/{id}' ,[OrderController::class, 'ajax_merchant']);
+        Route::get('master_waybill' ,[OrderController::class, 'master_waybill']);
+        Route::post('master_waybill' ,[OrderController::class, 'add_master_waybill']);
 
 
     });
