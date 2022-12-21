@@ -61,12 +61,7 @@
                   <p>Place Order</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="{{ url('admin/order/master_waybill') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Set Master Waybill</p>
-                </a>
-              </li>
+
             </ul>
           </li>
 
@@ -76,31 +71,20 @@
 
             <li class="nav-item">
                 <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-solid fa-book fs-5"></i>
+                    <i class="nav-icon fas fa-solid fa-arrows-rotate"></i>
                     <p>
                         Operation Management
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
+
                     <li class="nav-item">
-                        <a href="{{ url('admin/service') }}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Set Via Service</p>
+                        <a href="{{ url('admin/order/operation') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Operations</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ url('admin/order/create') }}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Set MAWB Number</p>
-                        </a>
-                    </li>
-                    {{-- <li class="nav-item">
-                      <a href="pages/charts/inline.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Inline</p>
-                      </a>
-                    </li> --}}
                 </ul>
             </li>
 
