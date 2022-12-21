@@ -1,5 +1,5 @@
 @extends('layouts.auth_layout')
-@section('title','Master Waybill')
+@section('title','Operations')
 @section('admin_content')
 
 <div class="content-wrapper">
@@ -14,6 +14,9 @@
                     <div class="d-flex justify-content-between align-items-center ">
                         <h3 class="card-title">Orders</h3>
                         <div>
+                            <button type="button" class="btn  btn-light ml-2" data-toggle="modal" data-target="#via_services">
+                               Set Via Service
+                            </button>
                             <button type="button" class="btn  btn-light ml-2" data-toggle="modal" data-target="#masterwaybill">
                                 Set Master Waybill
                             </button>
@@ -64,6 +67,7 @@
 </div>
 
 @include('backend.orders.add_master_waybill')
+@include('backend.orders.add_via_service')
 
 @endsection
 
@@ -107,6 +111,8 @@
       }
       $('#order_not_check_id').val(notchecked);
       $('#order_check_id').val(checked);
+      $('#order_not_check').val(notchecked);
+      $('#order_check').val(checked);
   });
   $.removeCookie("test");
   $.removeCookie("nottest");

@@ -55,7 +55,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 //============Auth Route Starts here =================
 
 Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
-    //==================Order Routes================
+    //==================Order Routes=================
 
 
     Route::group(['prefix'=>'order'],function(){
@@ -68,8 +68,9 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
         Route::get('reports' ,[OrderController::class, 'reports']);
         Route::get('reports.download' ,[OrderController::class, 'download']);
         Route::get('merchant/{id}' ,[OrderController::class, 'ajax_merchant']);
-        Route::get('master_waybill' ,[OrderController::class, 'master_waybill']);
+        Route::get('operation' ,[OrderController::class, 'operations']);
         Route::post('master_waybill' ,[OrderController::class, 'add_master_waybill']);
+        Route::post('via_service' ,[ServiceController::class, 'via_service']);
 
 
     });

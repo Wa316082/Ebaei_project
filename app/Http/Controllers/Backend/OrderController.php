@@ -297,10 +297,11 @@ class OrderController extends Controller
 
 
 
-    public function master_waybill()
+    public function operations()
     {
         $orders = Order::get();
-        return view('backend.orders.master_wabill_set',compact('orders'));
+        $merchants= Merchant::get();
+        return view('backend.orders.operations',compact('orders','merchants'));
     }
 
 
