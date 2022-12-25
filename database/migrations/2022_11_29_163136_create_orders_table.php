@@ -55,6 +55,7 @@ return new class extends Migration
             $table->float('final_weight')->nullable();
             $table->string('remarks')->nullable();
             $table->string('master_waybill')->nullable();
+            $table->string('additional_waybill')->nullable();
             $table->timestamps();
         });
     }

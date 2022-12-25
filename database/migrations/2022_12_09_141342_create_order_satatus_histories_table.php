@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->string('order_waybill')->nullable();
+            $table->string('proves')->nullable();
             $table->unsignedBigInteger('status_id')->nullable();
             $table->unsignedBigInteger('sender_country_id')->nullable();
             $table->unsignedBigInteger('sender_zone_id')->nullable();

@@ -8,16 +8,16 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form action="{{ url('admin/status.histroy') }}" method="POST">
+        <form action="{{ url('admin/status.histroy') }}" enctype="multipart/form-data" method="POST"  >
             @csrf
             <div class="modal-body">
 
                 <div class="form-group">
                     <label for="status_id" class="col-form-label">Select Status Group</label>
-                    <select class="form-control select2" name="status_id">
+                    <select class="form-control data_parent select2" name="status_id">
                         <option value="">Select Status</option>
                         @foreach ($statuses as $status)
-                            <option value="{{ $status->id }}">{{ $status->name }}
+                            <option value="{{ $status->id }}" data-parent="{{ $status->name}}">{{ $status->name }}
                             </option>
                         @endforeach
 
@@ -33,10 +33,21 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="form-group ">
                     <label for="remarks" class="col-form-label">Remarks And Comments</label>
                     <textarea class="form-control" id="remarks" name="remarks"></textarea>
-                </div>
-                @error('remarks')
+                    @error('remarks')
                     <span class="text-danger">{{ $message }}</span>
-                @enderror
+                    @enderror
+
+                </div>
+
+                <div class="form-group ">
+                    <label for="proves" class="col-form-label">Remarks And Comments</label>
+                    <input type="file" class="form-control d-none" id="proves" name="proves" />
+                    @error('proves')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+
+                </div>
+
             </div>
 
             <div class="modal-footer">

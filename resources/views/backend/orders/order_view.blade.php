@@ -129,5 +129,16 @@
 //           }
 //       });
 //   });
+
+
+
+$('.data_parent').change(function(){
+    var data = $('.data_parent option:selected').data("parent");
+    if(data == "Delivered"){
+        $('#proves').removeClass('d-none');
+    }else{
+        $('#proves').addClass('d-none');
+    }
+})
 </script>
 @endsection

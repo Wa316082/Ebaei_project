@@ -15,6 +15,7 @@ class ServiceController extends Controller
     {
         $validated = $request->validate([
             'merchant' => 'required',
+            'additional_waybill'=>'required'
 
                 ],
             );
@@ -49,6 +50,7 @@ class ServiceController extends Controller
                 $order=Order::where('id',$orders)->first();
                 // dd($order);
                 $order->merchant_id = $request->merchant;
+                $order->additional_waybill = $request->additional_waybill;
                 $order->save();
             }
             return back()->with('success', 'Service seted successfully !');
