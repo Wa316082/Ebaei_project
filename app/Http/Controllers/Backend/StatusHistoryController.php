@@ -13,6 +13,7 @@ class StatusHistoryController extends Controller
 {
     public function store(Request $request)
     {
+        // dd($request->all());
 
         $validated = $request->validate([
             'status_checked' => 'required',
@@ -49,20 +50,34 @@ class StatusHistoryController extends Controller
             $intersect = array_intersect($array_data, $not_array_checked);
             $filteredFoo = array_diff($array_data, $not_array_checked );
 
+
+
             foreach($filteredFoo  as $orders)
             {
                 $order=Order::where('id',$orders)->first();
                 $statushistory = new OrderSatatusHistory();
+
+                    //file save and new name
+                $prove_file = $request->proves;
+                    // dd($prove_file);
+                    // $name=$prove_file->getClientOriginalName();
+                    // dd($name);
+                $file_name = $order->id.'-'.time().'.'.$prove_file->getClientOriginalExtension();
+                    // dd($file_name);
+                $request->proves->move('upload/proves',$file_name );
+                $prove_file_url = 'upload/proves'.$file_name;
+
                 $statushistory->order_id=$order->id;
-                // $statushistory->custom_order_id=$order->custom_order_id;
-                 $statushistory->status_id=$request->status_id;
-                 $statushistory->sender_country_id=$order->sender_country_id;
-                 $statushistory->sender_zone_id=$order->sender_zone_id;
-                 $statushistory->sender_area_id=$order->sender_area_id;
-                 $statushistory->remarks=$request->remarks;
-                 $statushistory->posted_on=Carbon::now();
-                 $statushistory->posted_by=Auth::user()->id;
-                 $statushistory->save();
+                    // $statushistory->custom_order_id=$order->custom_order_id;
+                $statushistory->status_id=$request->status_id;
+                $statushistory->proves = $prove_file_url;
+                $statushistory->sender_country_id=$order->sender_country_id;
+                $statushistory->sender_zone_id=$order->sender_zone_id;
+                $statushistory->sender_area_id=$order->sender_area_id;
+                $statushistory->remarks=$request->remarks;
+                $statushistory->posted_on=Carbon::now();
+                $statushistory->posted_by=Auth::user()->id;
+                $statushistory->save();
             }
             return back()->with('success', 'Status updated successfully !');
         }

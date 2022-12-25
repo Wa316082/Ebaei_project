@@ -25,10 +25,18 @@ aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <option value="{{ $merchant->id }}">{{ $merchant->name }}</option>
                         @endforeach
                     </select>
+                    @error('merchant')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
-                @error('merchant')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+                <div class="form-group ">
+                    <label for="additional_waybill">Additional Waybill</label>
+                    <input type="text" class="form-control" placeholder="Additional Waybill" name="additional_waybill" id="additional_waybill">
+                    @error('additional_waybill')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+
             </div>
 
             <div class="modal-footer">
