@@ -526,7 +526,7 @@ $(document).ready(function(){
     $('.btn-ecommerce').addClass('btn-light');
     $('.btn-domestic').removeClass('btn-info');
     $('.btn-domestic').addClass('btn-light');
-    $('.delivery-time').removeClass('d-none');
+    $('.delivery-time').addClass('d-none');
     $(".e-commerce").addClass("d-none");
     $('.btn-international').removeClass('btn-light');
     $('.btn-international').addClass('btn-info');
