@@ -1,0 +1,67 @@
+.number {
+    letter-spacing: 5px;
+    border: none;
+}
+
+.first_table {
+    height: 200px;
+}
+
+.first_table tr {
+    height: 10px;
+}
+
+.first_table tr th {
+    border: 1px solid black;
+}
+
+.second_table {
+    height: 200px;
+
+}
+
+.second_table th {}
+
+.second_table td {}
+
+.form-table {
+    padding: 0;
+}
+
+
+.form-table tbody tr th {
+
+    border: 1px solid #DEE2E6;
+    background-color: #EC1C24;
+    color: #fff;
+}
+
+.form-table tbody tr td {
+
+    border: 1px solid #DEE2E6;
+}
+
+.head {
+
+    font-size: 25px;
+}
+
+.header {
+
+    height: 220px;
+    margin: 0;
+    padding: 0;
+
+}
+
+.logo {
+    margin-top: 50px;
+
+}
+
+.logo img {
+    width: 205px;
+    height: 125px;
+    margin: 0 auto;
+
+}

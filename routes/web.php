@@ -71,6 +71,7 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
         Route::get('operation' ,[OrderController::class, 'operations']);
         Route::post('master_waybill' ,[OrderController::class, 'add_master_waybill']);
         Route::post('via_service' ,[ServiceController::class, 'via_service']);
+        Route::get('Cn/{id}',[OrderController::class , 'cn_print']);
 
 
     });

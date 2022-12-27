@@ -348,4 +348,11 @@ class OrderController extends Controller
             return back()->with('success', 'Master Waybill Updated successfully !');
         }
     }
+
+
+    public function cn_print($id)
+    {
+        $order = Order::find($id);
+        return view('backend.orders.print_CN',compact('order'));
+    }
 }

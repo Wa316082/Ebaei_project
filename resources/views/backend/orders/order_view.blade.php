@@ -47,7 +47,7 @@
                         <td>{{ $order->reciver_contact }}</td>
                         <td>{{ $order->order_price }}</td>
                         <td>{{ $order->waybill_number }}</td>
-                        <td>actions</td>
+                        <td><a target="__blank" href="{{ url('admin/order/Cn',$order->id) }}" class="btn btn-success"><i class="fas fa-solid fa-file-invoice fs-4 "></i></a></td>
                       </tr>
                       @endforeach
 
