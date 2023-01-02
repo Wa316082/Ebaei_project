@@ -28,7 +28,7 @@
                         @foreach ($histories as $history )
                       <tr>
                         <td>{{ $history->remarks }}</td>
-                        <td>{{ $history->posted_on }}</td>
+                        <td>{{ Carbon\Carbon::parse($history->posted_on)->format('D-Y-m-d h:i -a') }}</td>
                         <td>{{ $history->posted_by }}</td>
                         <td>{{ $history->status->name }}</td>
 

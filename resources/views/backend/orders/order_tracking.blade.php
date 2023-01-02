@@ -34,7 +34,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="daterange">Date Range</label>
-                                <input type="text" class="form-control" name="dates" id="demo" value="01/01/2018 - 01/15/2018" />
+                                <input type="text" class="form-control" name="dates" id="demo" placeholder="Peack Date Ranges" />
                             </div>
 
                             <div class="col-md-3">
