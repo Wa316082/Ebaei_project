@@ -25,6 +25,7 @@ class OrderController extends Controller
     {
 
         $orders = Order::get();
+        // dd($orders);
         $statuses = Status::get();
         return view('backend.orders.order_view',compact('orders','statuses'));
     }
@@ -178,9 +179,11 @@ class OrderController extends Controller
 
     public function tracking_search(Request $request)
     {
-        $arr_date = explode("-", $request->dates);
-        $from_date = Carbon::parse($arr_date[0])->format('Y-m-d');
-        $to_date = Carbon::parse($arr_date[1])->format('Y-m-d');
+        if($request->dates != null){
+            $arr_date = explode("-", $request->dates);
+            $from_date = Carbon::parse($arr_date[0])->format('Y-m-d');
+            $to_date = Carbon::parse($arr_date[1])->format('Y-m-d');
+        }
         // dd($from_date,$to_date);
 
         try {
@@ -254,7 +257,23 @@ class OrderController extends Controller
     {
         $histories = OrderSatatusHistory::where('order_id',$id)->with('status')->get();
         // dd($histories);
-        return view('backend.orders.order_tracking_details', compact('histories'));
+        $count = count($histories);
+        $delivered = false;
+        foreach($histories as $history){
+            if($history->status->name == 'Delivered'){
+                $delivered = true;
+                if($delivered = true){
+                    $status = $history;
+                }
+            }
+        }
+
+        // dd($status);
+
+        $lastStatus = $histories->last();
+        $order= Order::find($lastStatus->order_id);
+        // dd($order);
+        return view('landing_pages.tracking', compact('histories','lastStatus','count','order','delivered','status'));
     }
 
 
@@ -354,5 +373,45 @@ class OrderController extends Controller
     {
         $order = Order::find($id);
         return view('backend.orders.print_CN',compact('order'));
+    }
+
+
+
+    public function search(Request $request)
+    {
+
+        // $locations = Location::where('parent_id', 0)->get();
+        // $substatuses = StatusGroup::get();
+        // $statuses = Status::get();
+        // $merchants = User::where('role_id',3)->get();
+        // $orders = Order::get();
+        // dd($orders);
+        $statuses = Status::get();
+
+        if($request->waybill_number != null){
+            // dd($request->all());
+
+
+            $order_id=$request->waybill_number;
+
+            $delimiters = ['.',',' ,'?', ' ','|'];
+            $newOrderId = str_replace($delimiters, $delimiters[0], $order_id);//string seperate
+            $array = explode($delimiters[0], $newOrderId);
+// dd($array);
+            $orders = Order::whereIn('waybill_number', $array)->paginate(10);
+            // dd($orders);
+
+            $orders->appends($request->all());
+
+            return view('backend.orders.order_view', compact('orders','statuses'))->with('success','Data successfully founded !');
+
+        }
+        else{
+            return redirect()->back()->with('info','Search Not Match !');
+
+        }
+
+
+
     }
 }

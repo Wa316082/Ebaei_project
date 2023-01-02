@@ -24,6 +24,31 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
+                    <div class="mb-4 border shadow-sm p-3">
+                        <form action="{{ url('admin/order/search') }}" method="GET" class="d-flex row">
+                            
+                            <div class="col-md-6">
+                                <label for="waybill_number">Search by Waybill No:</label>
+                                <input type="text" name="waybill_number" placeholder="waybill number" class="form-control">
+                            </div>
+                            {{-- <div class="col-md-3">
+                                <label for="daterange">Date Range</label>
+                                <input type="text" class="form-control" name="dates" id="demo" value="01/01/2018 - 01/15/2018" />
+                            </div>
+
+                            <div class="col-md-3">
+                                <label for="waybill">Merchant Name</label>
+                                <select name="merchant_name" class="form-control select2" id="merchant_name">
+                                  <option value="" selected="selected">Select One</option>
+                                  @foreach ($merchants as $merchant )
+                                  <option value="{{ $merchant->id }}">{{ $merchant->name }}</option>
+                                  @endforeach
+                              </select> --}}
+                              <div class="mt-3"><button type="submit" class="btn btn-success"><span><i class="fas fa-solid fa-magnifying-glass fw-6"></i></span> Search</button></div>
+                            </div>
+
+                        </form>
+                    </div>
                     <table id="example2" class="table table-bordered table-hover">
                       <thead>
                       <tr>

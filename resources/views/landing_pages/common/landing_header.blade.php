@@ -30,12 +30,13 @@
         <link rel="stylesheet" href="{{ asset('landing/root/css/build.css') }}">
         <link rel="stylesheet" href="{{ asset('landing/root/css/animate.min.css') }}">
         <link rel="stylesheet" href="{{ asset('landing/root/css/style.css') }}">
+        <link href="{{ asset('landing/root/css/tracking.css') }}" rel="stylesheet" >
         <link href="{{ asset('landing/root/css/bootstrap-touch-slider.css') }}" rel="stylesheet" >
         <!-- Primary JS File end -->
     </head>
     <body>
         @include('landing_pages.common.navbar')
-        
+
         @yield('content')
 
         @include('landing_pages.common.landing_footer')

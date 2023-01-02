@@ -77,10 +77,8 @@
 
     {{-- third party scripts --}}
     {{-- jquery cdn  --}}
-    <script
-    src="https://code.jquery.com/jquery-3.6.2.js"
-    integrity="sha256-pkn2CUZmheSeyssYw3vMp1+xyub4m+e+QK4sQskvuo4="
-    crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.2.js" integrity="sha256-pkn2CUZmheSeyssYw3vMp1+xyub4m+e+QK4sQskvuo4="
+        crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     {{-- <script src="{{ asset('admin/assets/plugins/jquery/jquery.min.js') }}"></script> --}}
@@ -159,19 +157,36 @@
 
         })
 
-        $('#demo').daterangepicker({
+        // $('#demo').daterangepicker(
+        //     //     {
 
-            "startDate": new Date() ,
-            "endDate": new Date()
-        },
-        function(start, end, label) {
-            console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format(
-                'YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+        //     //     "startDate": new Date() ,
+        //     //     "endDate": new Date()
+        //     // },
+        //     function(start, end,label) {
+        //         // console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format(
+        //         //     'YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+        //     });
+
+        $(function() {
+
+            $('#demo').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+
+            $('#demo').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format(
+                    'MM/DD/YYYY'));
+            });
+
+            $('#demo').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+
         });
-
-
-
-
     </script>
 
 

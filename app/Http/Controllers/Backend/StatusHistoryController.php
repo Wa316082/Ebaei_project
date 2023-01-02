@@ -57,20 +57,24 @@ class StatusHistoryController extends Controller
                 $order=Order::where('id',$orders)->first();
                 $statushistory = new OrderSatatusHistory();
 
+                if($request->proves != null){
                     //file save and new name
-                $prove_file = $request->proves;
+                    $prove_file = $request->proves;
                     // dd($prove_file);
                     // $name=$prove_file->getClientOriginalName();
                     // dd($name);
-                $file_name = $order->id.'-'.time().'.'.$prove_file->getClientOriginalExtension();
-                    // dd($file_name);
-                $request->proves->move('upload/proves',$file_name );
-                $prove_file_url = 'upload/proves'.$file_name;
+                    $file_name = $order->id.'-'.time().'.'.$prove_file->getClientOriginalExtension();
+                        // dd($file_name);
+                    $request->proves->move('upload/proves',$file_name );
+                    $prove_file_url = 'upload/proves'.$file_name;
+                    $statushistory->proves = $prove_file_url;
+                }else{
+                    $statushistory->proves = null;
+                }
 
                 $statushistory->order_id=$order->id;
                     // $statushistory->custom_order_id=$order->custom_order_id;
                 $statushistory->status_id=$request->status_id;
-                $statushistory->proves = $prove_file_url;
                 $statushistory->sender_country_id=$order->sender_country_id;
                 $statushistory->sender_zone_id=$order->sender_zone_id;
                 $statushistory->sender_area_id=$order->sender_area_id;
