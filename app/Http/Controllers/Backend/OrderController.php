@@ -116,14 +116,14 @@ class OrderController extends Controller
                 $order->sender_area_id=$request->sender_area;
                 $order->sender_post_code=$request->sender_post_code;
                 $order->sender_address=$request->sender_address;
-                $order->reciver_name=$request->reciever_name;
-                $order->reciver_contact=$request->reciever_contact;
-                $order->reciver_email=$request->reciever_email;
-                $order->reciver_country_id=$request->reciever_country;
-                $order->reciver_zone_id=$request->reciever_zone;
-                $order->reciver_area_id=$request->reciever_area;
-                $order->reciver_post_code=$request->reciever_post_code;
-                $order->reciver_address=$request->reciever_address;
+                $order->reciever_name=$request->reciever_name;
+                $order->reciever_contact=$request->reciever_contact;
+                $order->reciever_email=$request->reciever_email;
+                $order->reciever_country_id=$request->reciever_country;
+                $order->reciever_zone_id=$request->reciever_zone;
+                $order->reciever_area_id=$request->reciever_area;
+                $order->reciever_post_code=$request->reciever_post_code;
+                $order->reciever_address=$request->reciever_address;
                 // $order->latitude='';
                 // $order->longitude='';
                 $order->waybill_number=$request->waybill_number;
@@ -387,23 +387,50 @@ class OrderController extends Controller
         // $merchants = User::where('role_id',3)->get();
         // $orders = Order::get();
         // dd($orders);
+        // dd($request->all());
         $statuses = Status::get();
 
-        if($request->waybill_number != null){
+        if($request->waybill_number != null && $request->dates == null){
             // dd($request->all());
+            $order_id=$request->waybill_number;
 
+            $delimiters = ['.',',' ,'?', ' ','|'];
+            $newOrderId = str_replace($delimiters, $delimiters[0], $order_id);//string seperate
+            $array = explode($delimiters[0], $newOrderId);
+            // dd($array);
+            $orders = Order::whereIn('waybill_number', $array)->paginate(10);
+            // dd($orders);
+
+            $orders->appends($request->all());
+
+            return view('backend.orders.order_view', compact('orders','statuses'))->with('success','Data successfully founded !');
+
+        }elseif($request->waybill_number == null && $request->dates != null){
+            // dd($request->all());
+            $arr_date = explode("-", $request->dates);
+            $from_date = Carbon::parse($arr_date[0])->format('Y-m-d');
+            $to_date = Carbon::parse($arr_date[1])->format('Y-m-d');
+
+            $orders = Order::whereBetween('created_at',array($request->from_date.' 00:00:00',  $request->to_date.' 23:59:59'))->paginate(10);
+
+            $orders->appends($request->all());
+            return view('backend.orders.order_view', compact('orders','statuses'))->with('success','Data successfully founded !');
+
+        }elseif($request->waybill_number != null && $request->dates != null){
+            // dd($request->all());
+            $arr_date = explode("-", $request->dates);
+            $from_date = Carbon::parse($arr_date[0])->format('Y-m-d');
+            $to_date = Carbon::parse($arr_date[1])->format('Y-m-d');
 
             $order_id=$request->waybill_number;
 
             $delimiters = ['.',',' ,'?', ' ','|'];
             $newOrderId = str_replace($delimiters, $delimiters[0], $order_id);//string seperate
             $array = explode($delimiters[0], $newOrderId);
-// dd($array);
-            $orders = Order::whereIn('waybill_number', $array)->paginate(10);
-            // dd($orders);
+
+            $orders = Order::whereIn('waybill_number', $array)->whereBetween('created_at',array($request->from_date.' 00:00:00',  $request->to_date.' 23:59:59'))->paginate(10);
 
             $orders->appends($request->all());
-
             return view('backend.orders.order_view', compact('orders','statuses'))->with('success','Data successfully founded !');
 
         }
@@ -415,6 +442,7 @@ class OrderController extends Controller
 
 
     }
+
 
 
 
