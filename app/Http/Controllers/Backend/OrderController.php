@@ -9,7 +9,6 @@ use App\Models\Order;
 use App\Models\Status;
 use App\Models\Location;
 use App\Models\Merchant;
-use App\Imports\OrderImport;
 use Illuminate\Http\Request;
 use App\Exports\OrderReports;
 use App\Models\OrderSatatusHistory;
@@ -413,21 +412,6 @@ class OrderController extends Controller
         }
 
 
-
-    }
-
-
-
-    public function bulkentry(){
-        return view('backend.orders.bulk_entry');
-
-    }
-
-    public function uploadbulkentry(Request $request){
-        // dd($request->all());
-        Excel::import(new OrderImport,request()->file('file'));
-
-        return back()->with('success','CSV uploaded Successfully!');
 
     }
 }
