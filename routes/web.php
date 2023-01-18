@@ -74,10 +74,6 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
         Route::get('Cn/{id}',[OrderController::class , 'cn_print']);
         Route::get('search',[OrderController::class , 'search']);
 
-        Route::get('bulk_entry', [OrderController::class, 'bulkentry']);
-        Route::post('bulkentry', [OrderController::class, 'uploadbulkentry']);
-
-
 
     });
 

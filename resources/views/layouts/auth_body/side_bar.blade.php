@@ -2,98 +2,91 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     {{-- <a href="index3.html" class="brand-link"> --}}
-    {{-- <img src="{{ asset('admin/images/1-2ndlogo (1).png') }}" alt="Ebaie Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-    {{-- <span class="brand-text font-weight-light">Ebaie</span> --}}
+      {{-- <img src="{{ asset('admin/images/1-2ndlogo (1).png') }}" alt="Ebaie Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
+      {{-- <span class="brand-text font-weight-light">Ebaie</span> --}}
     {{-- </a> --}}
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        {{-- <div class="mt-3 pb-3 mb-3 d-flex">
+      <!-- Sidebar user panel (optional) -->
+      {{-- <div class="mt-3 pb-3 mb-3 d-flex">
         <div class="">
           <img src="{{ asset('admin/images/1-baeilogo2.png') }}" class=" " alt="User Image">
         </div>
       </div> --}}
 
-        <!-- SidebarSearch Form -->
-        <div class="form-inline pt-2">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
+      <!-- SidebarSearch Form -->
+      <div class="form-inline pt-2">
+        <div class="input-group" data-widget="sidebar-search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-sidebar">
+              <i class="fas fa-search fa-fw"></i>
+            </button>
+          </div>
         </div>
+      </div>
 
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li class="nav-item active">
-                    <a href="{{ route('home') }}" class="nav-link">
-                        <i class="nav-icon fas fa-light fa-tv"></i>
-                        <p>Dashbord</p>
-                    </a>
+          <li class="nav-item active">
+            <a href="{{ route('home') }}" class="nav-link">
+              <i class="nav-icon fas fa-light fa-tv"></i>
+              <p>Dashbord</p>
+            </a>
 
-                </li>
+          </li>
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-solid fa-book fs-5"></i>
-                        <p>
-                            Management
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('admin/order') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Order Management</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('admin/order/create') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Place Order</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('admin/order/bulk_entry') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Upload Excel</p>
-                            </a>
-                        </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-solid fa-book fs-5"></i>
+              <p>
+                Management
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('admin/order') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Order Management</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('admin/order/create') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Place Order</p>
+                </a>
+              </li>
 
-                    </ul>
-                </li>
+            </ul>
+          </li>
 
 
-                {{--            Operation Management --}}
+{{--            Operation Management--}}
 
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-solid fa-arrows-rotate"></i>
-                        <p>
-                            Operation Management
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-solid fa-arrows-rotate"></i>
+                    <p>
+                        Operation Management
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
 
-                        <li class="nav-item">
-                            <a href="{{ url('admin/order/operation') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Operations</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ url('admin/order/operation') }}" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Operations</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
 
 
@@ -103,28 +96,28 @@
 
 
 
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-solid fa-paper-plane"></i>
-                        <p>
-                            Order Process
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('admin/order/reports') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>General Reports</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('admin/order/tracking') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Order Tracking</p>
-                            </a>
-                        </li>
-                        {{-- <li class="nav-item">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-solid fa-paper-plane"></i>
+              <p>
+                Order Process
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('admin/order/reports') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>General Reports</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('admin/order/tracking') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Order Tracking</p>
+                </a>
+              </li>
+              {{-- <li class="nav-item">
                 <a href="pages/forms/editors.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Editors</p>
@@ -136,45 +129,45 @@
                   <p>Validation</p>
                 </a>
               </li> --}}
-                    </ul>
-                </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-solid fa-gears"></i>
+              <p>
+                General Settings
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('admin/status') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>View Status</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('admin/location') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Locations</p>
+                </a>
+              </li>
+
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-solid fa-gears"></i>
-                        <p>
-                            General Settings
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
+                    <a href="{{ url('admin/merchant') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Merchant</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('admin/status') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>View Status</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('admin/location') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Locations</p>
-                            </a>
-                        </li>
+                </li>
 
-                        <li class="nav-item">
-                            <a href="{{ url('admin/merchant') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Merchant</p>
-                            </a>
-                        </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/agent') }}" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Agent</p>
+                    </a>
+                </li>
 
-                        <li class="nav-item">
-                            <a href="{{ url('admin/agent') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Agent</p>
-                            </a>
-                        </li>
-
-                        {{-- <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="pages/UI/buttons.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Buttons</p>
@@ -210,11 +203,11 @@
                   <p>Ribbons</p>
                 </a>
               </li> --}}
-                    </ul>
-                </li>
+            </ul>
+          </li>
 
 
-                {{-- <li class="nav-item">
+          {{--<li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
               <p>
@@ -604,9 +597,9 @@
               <p>Informational</p>
             </a>
           </li> --}}
-            </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
-</aside>
+  </aside>
