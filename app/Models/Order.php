@@ -28,17 +28,17 @@ class Order extends Model
 
     public function reciever_country()
     {
-        return $this->belongsTo(Location::class, 'reciver_country_id','id');
+        return $this->belongsTo(Location::class, 'reciever_country_id','id');
     }
 
     public function reciever_zone()
     {
-        return $this->belongsTo(Location::class, 'reciver_zone_id','id');
+        return $this->belongsTo(Location::class, 'reciever_zone_id','id');
     }
 
     public function reciever_area()
     {
-        return $this->belongsTo(Location::class, 'reciver_area_id','id');
+        return $this->belongsTo(Location::class, 'reciever_area_id','id');
     }
 
 
