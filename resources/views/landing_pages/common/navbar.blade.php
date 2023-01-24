@@ -42,8 +42,8 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Registration<span class="fa fa-angle-down" style="padding-left: 4px;"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a class="cd-main-nav__list js-signin-modal-trigger cd-main-nav__item cd-main-nav__item--signin" href="#0" data-signin="login"><i class="fa fa-chevron-right" style="margin-right: 4px"></i>Login</a></li>
-                  <li><a class="cd-main-nav__list js-signin-modal-trigger cd-main-nav__item cd-main-nav__item--signin" href="#0" data-signin="signup"><i class="fa fa-chevron-right" style="margin-right: 4px"></i>Registration</a></li>
+                  <li><a class="cd-main-nav__list  cd-main-nav__item cd-main-nav__item--signin" href="{{ url('login') }}" data-signin="login"><i class="fa fa-chevron-right" style="margin-right: 4px"></i>Login</a></li>
+                  <li><a class="cd-main-nav__list  cd-main-nav__item cd-main-nav__item--signin" href="#" data-signin="signup"><i class="fa fa-chevron-right" style="margin-right: 4px"></i>Registration</a></li>
                 </ul>
               </li>
 

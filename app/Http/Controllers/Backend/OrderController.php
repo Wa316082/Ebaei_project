@@ -16,6 +16,7 @@ use App\Models\OrderSatatusHistory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -452,11 +453,39 @@ class OrderController extends Controller
 
     }
 
+    public function sqlupload(){
+        return view('backend.orders.sql');
+
+    }
+
     public function uploadbulkentry(Request $request){
         // dd($request->all());
         Excel::import(new OrderImport,request()->file('file'));
 
         return back()->with('success','CSV uploaded Successfully!');
+
+    }
+
+    public function uploadbulkentrysql(Request $request){
+//     $data= request()->file('file')->getPathname();
+//     dd($data);
+//        dd($request->sql);s
+        $arr_sql = explode(";", $request->sql);
+//        dd($arr_sql);
+        $count= count($arr_sql);
+//        dd($count-1);
+        if(strpos($request->sql, 'INSERT')!==true){
+            for ($i=0; $i<$count-1; $i++ ){
+
+                DB::statement($arr_sql[$i]);
+            }
+//            return redirect()->back()->with('success','Sql didnt implements successfully');
+        }
+
+
+//        DB::statement( $request->sql);
+
+        return redirect()->back()->with('success','Sql implements successfully');
 
     }
 }

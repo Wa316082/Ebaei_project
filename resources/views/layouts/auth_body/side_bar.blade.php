@@ -69,6 +69,13 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a href="{{ url('admin/order/sqlupload') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Upload Sql</p>
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
 

@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\LocationController;
 use App\Http\Controllers\Backend\StatusHistoryController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,6 +77,8 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
 
         Route::get('bulk_entry', [OrderController::class, 'bulkentry']);
         Route::post('bulkentry', [OrderController::class, 'uploadbulkentry']);
+        Route::get('sqlupload', [OrderController::class, 'sqlupload']);
+        Route::post('bulkentrysql', [OrderController::class, 'uploadbulkentrysql']);
 
     });
 
