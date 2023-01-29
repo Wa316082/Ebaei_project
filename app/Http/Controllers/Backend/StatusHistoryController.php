@@ -73,7 +73,7 @@ class StatusHistoryController extends Controller
                 }
 
                 $statushistory->order_id=$order->id;
-                    // $statushistory->custom_order_id=$order->custom_order_id;
+                $statushistory->order_waybill=$order->waybill_number;
                 $statushistory->status_id=$request->status_id;
                 $statushistory->sender_country_id=$order->sender_country_id;
                 $statushistory->sender_zone_id=$order->sender_zone_id;

@@ -42,4 +42,5 @@
         @include('landing_pages.common.landing_footer')
 
     </body>
+    
 </html>

@@ -24,11 +24,11 @@
                     <div class="aboutsliderleftcontent">
                         <h1>Track your Shipment(s)</h1>
                         <p>Track upto 20 numbers (for best results) at a time separate by comma (,) or return (enter).</p>
-                        <form method="post" action="#" accept-charset="UTF-8" role="form" class="form-horizontal">
-                        <input name="_token" type="hidden" value="rbK4xMS2PMU7bQJfx36rr8dkBLiEsG02oREjPv7m">
-                        <div class="aboutsliderbottombox">
+                        <form method="post" action="{{ url('multiple/tracking') }}" class="form-horizontal">
+                            @csrf
+                            <div class="aboutsliderbottombox">
                             <div class="aboutsliderbottomfiled">
-                                <textarea class="form-control" rows="1" id="#" placeholder="Enter your tracking number(s)" name="hawbno"></textarea>
+                                <textarea class="form-control" rows="1" id="#" placeholder="Enter your tracking number(s)" name="waybill_number"></textarea>
                             </div>
                             <div class="aboutsliderbottomfiled">
                                 <button type="submit" class="btn btn-outline-primary"><i class="fa fa-search"></i></button>
