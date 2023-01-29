@@ -94,7 +94,7 @@ class OrderController extends Controller
         ]);
         // dd($request->all());
 
-        if($validated){
+
             try {
                 $order = new Order;
 
@@ -154,9 +154,7 @@ class OrderController extends Controller
             } catch (Throwable $e) {
                 return $e ;
             }
-        }else{
-            dd('order pai nai');
-        }
+
 
 
 
@@ -244,7 +242,7 @@ class OrderController extends Controller
 
             return back()->with([
                 'orders'=>$orders,
-            ])->with('success','Order tracked :)');
+            ])->with('success','Order tracked !');
 
         } catch (Throwable $th) {
            return $th;
@@ -258,24 +256,84 @@ class OrderController extends Controller
     public function track($id)
     {
         $histories = OrderSatatusHistory::where('order_id',$id)->with('status')->get();
-        // dd($histories);
-        $count = count($histories);
-        $delivered = false;
-        foreach($histories as $history){
-            if($history->status->name == 'Delivered'){
-                $delivered = true;
-                if($delivered = true){
-                    $status = $history;
+        $lastStatus = $histories->last();
+
+            // dd($lastStatus);
+            $count = count($histories);
+            $delivered = null;
+            // dd($delivered);
+            foreach($histories as $history){
+
+                if($history->status->name == 'Delivered'){
+                    $delivered = $history;
                 }
             }
+            // dd($delivered->status->name);
+
+
+        $order= Order::find($id);
+
+        $collection = new OrderSatatusHistory;
+        $collection->histories = $histories;
+        $collection->lastStatus = $lastStatus;
+        $collection->count = $count;
+        $collection->order = $order;
+        $collection->delivered = $delivered;
+
+        // $collections->push($collection);
+
+        // dd($collection->lastStatus);
+
+        // return view('backend.orders.order_tracking_details', compact('collection'));
+        return view('demo_tracking', compact('collection'));
+
+    }
+
+
+    //tract from frontend
+
+    public function multiple_track(Request $request)
+    {
+        $order_id=$request->waybill_number;
+
+            $delimiters = ['.',',' ,'?', ' ','|'];
+            $newOrderId = str_replace($delimiters, $delimiters[0], $order_id);//string seperate
+            $array = explode($delimiters[0], $newOrderId);
+            // dd($array);
+            $collections = collect([]);
+            foreach($array as $id){
+            $order = Order::where('waybill_number', $id)->first();
+            $histories = OrderSatatusHistory::where('order_id',$order->id)->with('status')->get();
+
+            $lastStatus = $histories->last();
+            $delivered = null;
+            if($lastStatus !=null){
+                $count = count($histories);
+                foreach($histories as $history){
+
+                    if($history->status->name == 'Delivered'){
+                        $delivered = $history;
+                    }
+                }
+
+            }
+
+            $collectData = new OrderSatatusHistory;
+            $collectData->histories = $histories;
+            $collectData->delivered = $delivered;
+            $collectData->lastStatus = $lastStatus;
+            $collectData->order = $order;
+            $collectData->count =  $count;
+
+            $collections->push($collectData);
+
+
+
         }
 
-        // dd($status);
+        return view('landing_pages.tracking', compact('collections'));
 
-        $lastStatus = $histories->last();
-        $order= Order::find($lastStatus->order_id);
-        // dd($order);
-        return view('landing_pages.tracking', compact('histories','lastStatus','count','order','delivered','status'));
+
     }
 
 
@@ -392,52 +450,44 @@ class OrderController extends Controller
         $statuses = Status::get();
 
         if($request->waybill_number != null && $request->dates == null){
-            // dd($request->all());
             $order_id=$request->waybill_number;
-
             $delimiters = ['.',',' ,'?', ' ','|'];
             $newOrderId = str_replace($delimiters, $delimiters[0], $order_id);//string seperate
             $array = explode($delimiters[0], $newOrderId);
-            // dd($array);
             $orders = Order::whereIn('waybill_number', $array)->paginate(10);
-            // dd($orders);
-
             $orders->appends($request->all());
 
-            return view('backend.orders.order_view', compact('orders','statuses'))->with('success','Data successfully founded !');
 
         }elseif($request->waybill_number == null && $request->dates != null){
-            // dd($request->all());
+
             $arr_date = explode("-", $request->dates);
             $from_date = Carbon::parse($arr_date[0])->format('Y-m-d');
             $to_date = Carbon::parse($arr_date[1])->format('Y-m-d');
-
             $orders = Order::whereBetween('created_at',array($request->from_date.' 00:00:00',  $request->to_date.' 23:59:59'))->paginate(10);
-
             $orders->appends($request->all());
-            return view('backend.orders.order_view', compact('orders','statuses'))->with('success','Data successfully founded !');
 
         }elseif($request->waybill_number != null && $request->dates != null){
-            // dd($request->all());
             $arr_date = explode("-", $request->dates);
             $from_date = Carbon::parse($arr_date[0])->format('Y-m-d');
             $to_date = Carbon::parse($arr_date[1])->format('Y-m-d');
-
             $order_id=$request->waybill_number;
-
             $delimiters = ['.',',' ,'?', ' ','|'];
             $newOrderId = str_replace($delimiters, $delimiters[0], $order_id);//string seperate
             $array = explode($delimiters[0], $newOrderId);
-
             $orders = Order::whereIn('waybill_number', $array)->whereBetween('created_at',array($request->from_date.' 00:00:00',  $request->to_date.' 23:59:59'))->paginate(10);
-
             $orders->appends($request->all());
-            return view('backend.orders.order_view', compact('orders','statuses'))->with('success','Data successfully founded !');
 
         }
         else{
             return redirect()->back()->with('info','Search Not Match !');
 
+        }
+
+        if($orders != null){
+            return view('backend.orders.order_view', compact('orders','statuses'))->with('success','Data successfully founded !');
+
+        }else{
+            return redirect()->back()->with('info','Search Not Match !');
         }
 
 

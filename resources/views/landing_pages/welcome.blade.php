@@ -1,6 +1,6 @@
 @extends('landing_pages.common.landing_header')
 @section('content')
-        
+
 
 
 
@@ -25,11 +25,12 @@
                     <img src="{{ asset('landing/root/img/car.png') }}">
                     <h1>Track your Shipment(s)</h1>
                     <p>Track upto 20 numbers (for best results) at a time separate by comma (,) or return (enter).</p>
-                    <form method="post" action="#/tracking" accept-charset="UTF-8" role="form" class="form-horizontal">
-                    <input name="_token" type="hidden" value="8hbtXRXb385K4I3OLSEigrTprLHutwyNXE3u1AHi">
+                    <form method="post" action="{{ url('multiple/tracking') }}" class="form-horizontal">
+                    @csrf
+
                     <div class="sliderbottombox">
                         <div class="sliderbottomfiled">
-                            <textarea class="form-control" rows="2" id="#" placeholder="Enter your tracking number(s)" name="hawbno"></textarea>
+                            <textarea class="form-control" rows="2" id="#" placeholder="Enter your tracking number(s)" name="waybill_number"></textarea>
                         </div>
                         <div class="sliderbottomfiled">
                             <button type="submit" class="btn btn-outline-primary"><i class="fa fa-search"></i></button>

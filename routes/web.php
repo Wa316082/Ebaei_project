@@ -52,6 +52,8 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+Route::post('/multiple/tracking', [OrderController::class , 'multiple_track']);
+
 
 //============Auth Route Starts here =================
 
@@ -106,7 +108,7 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
 
     });
 
-//    ================merchant routes========================
+    //    ================merchant routes========================
 
 
 
@@ -126,7 +128,7 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'],function(){
 
 
 
-//    ============service routes==================
+    //    ============service routes==================
 
     Route::group(['prefix'=>'service'], function(){
         Route::get('/', [ServiceController::class, 'index'])->name('services.view');
